@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "create-react-redux-app-structure": "^4.6.0",
+    "global": "^4.4.0",
+    "react": "^16.12.0",
+    "react-redux": "^7.1.3",
+    "redux": "^4.0.5"
+  }
+}
