@@ -8,20 +8,52 @@ export default (state = initState, action) => {
 
   switch (action.type) {
     case turn:
-      var room = pg.connectionHub
-      .invoke('GetRoom').then(function(result) {
-        console.log(room);
-        pg.connectionHub
-        .invoke('TurnCard', String(result), String(action.value))
-        .catch(err => console.error(err));
+      pg.connectionHub
+      .invoke('GetPlayerNum').then(function(playerNum) {
+          console.log(playerNum);
+          console.log(pg.playerTurn);
+        if (playerNum === pg.playerTurn)
+        {
+            pg.connectionHub
+            .invoke('GetRoom').then(function(result) {
+                pg.connectionHub
+                .invoke('TurnCard', String(result), String(action.value));
+            });
+        }
+        else
+        {
+            alert("Not your turn!");
+        }
       });
       return pg;
 
     case turnEnemy:
-        console.log("Brasko, jsem tu" + action.value);
         pg.Turn(action.value);
         return pg;
 
+    case passTurn:
+        pg.connectionHub
+      .invoke('GetPlayerNum').then(function(playerNum) {
+          console.log(playerNum);
+          console.log(pg.playerTurn);
+        if (playerNum === pg.playerTurn)
+        {
+            pg.connectionHub
+            .invoke('GetRoom').then(function(result) {
+                pg.connectionHub
+                .invoke('TurnBackAll', String(result));
+            });
+        }
+        else
+        {
+            alert("Not your turn!");
+        }
+      });
+        return pg;
+
+    case passTurnEnemy:
+        pg.TurnBackAll();
+        return pg;
     default:
       return state;
   }
@@ -29,8 +61,12 @@ export default (state = initState, action) => {
 
 const turn = "turn-action;";
 const turnEnemy = "turnEnemy-action;";
+const passTurn = "passTurn-action;";
+const passTurnEnemy = "passTurnEnemy-action"
 
 export const actionCreators = {
   turn: value => ({ type: turn, value: value }),
-  turnEnemy: value => ({ type: turnEnemy, value: value})
+  turnEnemy: value => ({ type: turnEnemy, value: value}),
+  passTurn: () => ({type: passTurn}),
+  passTurnEnemy: () => ({type: passTurn})
 };

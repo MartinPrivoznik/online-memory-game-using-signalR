@@ -20,6 +20,8 @@ class memoryGame {
     this.selected = gameData.selected; //kolekce hodnot (value) otočených karet
     this.connectionHub = gameData.connectionHub;
     this.roomName = gameData.roomName;
+    this.playerTurn = gameData.playerTurn;
+    this.passTurnEn = gameData.passTurnEn;
   }
 
   static initGame(maxTurned = 2, noOfCards = 28) {
@@ -53,7 +55,9 @@ class memoryGame {
       maxTurned: maxTurned,
       selected: [],
       connectionHub: connection,
-      roomName: roomName
+      roomName: roomName,
+      playerTurn: 1,
+      passTurnEn: true
     };
 
     return new memoryGame(gD);
@@ -73,21 +77,43 @@ class memoryGame {
   //number - hodnota na kartě (nikoliv její index!)
   Turn(number) {
     var self = this;
-    var positionInSelected = this.selected.indexOf(number);
     if (
-      (this._getTurned() < this.maxTurned || positionInSelected !== -1)
+      (this._getTurned() < this.maxTurned)
     ) {
       this.board.forEach(function(bp) {
-        if (bp.value === parseInt(number)) {
+        if (bp.value === parseInt(number) && bp.turned === false) {
           bp.turn();
-          if (bp.turned) self.turnsLeft--;
           let positionInSelected = self.selected.indexOf(number);
           if (positionInSelected !== -1)
             self.selected.splice(positionInSelected, 1);
           else self.selected.push(number);
+          if(self.selected.length === 2)
+          {
+            self.passTurnEn = false;
+          }
         }
       });
     }
+    else {
+     alert("Not your turn!")
+    }
+  }
+
+  TurnBackAll() {
+    var self = this;
+    this.board.forEach(function(bp) {
+      if(bp.turned === true)
+      {
+        bp.turn()
+        let positionInSelected = self.selected.indexOf(bp.value);
+          if (positionInSelected !== -1)
+            self.selected.splice(positionInSelected, 1);
+      }
+    if (self.playerTurn === 1)
+      self.playerTurn = 2;
+    else if (self.playerTurn === 2)
+      self.playerTurn = 1;
+    });
   }
 }
 

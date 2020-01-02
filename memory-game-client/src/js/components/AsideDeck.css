@@ -1,7 +1,0 @@
-.asideDeck {
-    display: flex;
-    flex-flow: column nowrap;
-    min-width: 220px;
-    background-color: #eeeeee;
-    margin-right: 1em;
-}

@@ -1,6 +1,7 @@
 import "./Stats.css";
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { actionCreators } from "../store/Reducer";
 
 class Stats extends Component {
   constructor(props) {
@@ -9,19 +10,23 @@ class Stats extends Component {
   }
   render() {
     return (
-      <div className={this.props.turnsLeft === 0 ? "stats endGame" : "stats"}>
-        <p>Tahů do konce: {this.props.turnsLeft}</p>
-        <p>Ještě lze vybrat: {this.props.left}</p>
-        <p>Celkem bodů: {this.props.sum}</p>
+      <div align="center">
+        <div className="stats">
+          <p>Ještě lze vybrat: {this.props.left}</p>
+        </div>
+        <button type="button" disabled={this.props.passTurnEn} onClick={() => this.props.passTurn()}> Pass turn </button>
       </div>
     );
   }
 }
 
+const mapDispatchToProps = {
+  passTurn: actionCreators.passTurn
+};
+
 const mapStateToProps = state => ({
   left: state.maxTurned - state.selected.length,
-  turnsLeft: state.turnsLeft,
-  sum: state.sum
+  passTurnEn: state.passTurnEn
 });
 
-export default connect(mapStateToProps)(Stats);
+export default connect(mapStateToProps, mapDispatchToProps)(Stats);
