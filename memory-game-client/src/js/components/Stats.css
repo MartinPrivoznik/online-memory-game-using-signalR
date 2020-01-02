@@ -1,0 +1,21 @@
+.stats {
+    display: table;
+    border: 2px solid black;
+    border-radius: 1em 0;
+    background-color: #eeeeee;
+    padding: 5px;
+    margin: 20px auto;
+    font-size: 1.5em;
+}
+
+.stats p {
+    margin: .5em .25em;
+}
+
+.stats p span {
+    font-weight: bold;
+}
+
+.stats.endGame {
+    background-color: lightskyblue;
+}

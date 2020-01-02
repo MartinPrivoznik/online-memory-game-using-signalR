@@ -1,0 +1,106 @@
+@import url(http://fonts.googleapis.com/css?family=Audiowide);
+
+.item {
+    display: inline-block;
+    position: relative;
+    margin: 5px;
+    width: 140px;
+    height: 140px;
+    cursor: pointer;
+}
+
+.item > .back, .item > .face {
+    background-color: white;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    backface-visibility: hidden;
+
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transition: all 0.5s linear;
+    -moz-transition: all 0.5s linear;
+    -o-transition: all 0.5s linear;
+    transition: all .5s linear;
+
+    border: 1px solid black;
+    -moz-box-shadow: -5px 5px 5px #aaa;
+    -webkit-box-shadow: -5px 5px 5px #aaa;
+    box-shadow: -5px 5px 5px #aaa;
+}
+
+.item.selected > .face, .item > .back {
+    -webkit-transform: rotateY(0deg);
+    -moz-transform: rotateY(0deg);
+    transform: rotateY(0deg);
+}
+
+.item.selected > .back, .item > .face {
+    -webkit-transform: rotateY(180deg);
+    -moz-transform: rotateY(180deg);
+    transform: rotateY(180deg);
+}
+
+.item .face p {
+    margin: 0px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+    text-align: center;
+    font-size: 5em;
+}
+
+.item .back > p {
+    position: absolute;
+    font-family: 'Audiowide', cursive;
+    margin: 0px;
+    margin-left: 10px;
+    left: 50%;
+    top: 50%;
+}
+
+.yin-yang {
+    margin-left: 0px;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.yin-yang {
+	width: 96px;
+	height: 48px;
+	background: #eee;
+	border-color: black;
+	border-style: solid;
+	border-width: 2px 2px 50px 2px;
+	border-radius: 100%;
+	position: relative;
+}
+
+.yin-yang:before {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 0;
+	background: #eee;
+	border: 18px solid black;
+	border-radius: 100%;
+	width: 12px;
+	height: 12px;
+}
+
+.yin-yang:after {
+	content: "";
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	background: black;
+	border: 18px solid #eee;
+	border-radius:100%;
+	width: 12px;
+	height: 12px;
+}

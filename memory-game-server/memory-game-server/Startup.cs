@@ -13,6 +13,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
+using memory_game_server.BussinessLogic;
 
 namespace memory_game_server
 {
@@ -28,7 +29,18 @@ namespace memory_game_server
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddCors();
+            services.AddSingleton<IMemoryGameManager, MemoryGameManager>();
+            services.AddSingleton<IPlayersManager, PlayersManager>();
+
+            services.AddCors(options => options.AddPolicy("CorsPolicy", builder =>
+            {
+                builder
+                    .WithOrigins("http://localhost:3000")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials();
+            }));
+
             services.AddControllers();
 
             services.AddMvc()
@@ -52,10 +64,7 @@ namespace memory_game_server
 
             app.UseAuthorization();
 
-            app.UseCors(builder => builder
-               .AllowAnyOrigin()
-               .AllowAnyMethod()
-               .AllowAnyHeader());
+            app.UseCors("CorsPolicy");
 
             app.UseEndpoints(endpoints =>
             {
