@@ -31,8 +31,7 @@ const mapStateToProps = (state, ownProps) => ({
 });
 
 const mapDispatchToProps = {
-  turn: actionCreators.turn,
-  turnEnemy: actionCreators.turnEnemy
+  turn: actionCreators.turn
 };
 
 export default connect(

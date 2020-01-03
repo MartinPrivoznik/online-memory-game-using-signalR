@@ -101,18 +101,20 @@ class memoryGame {
 
   TurnBackAll() {
     var self = this;
+    if (this.playerTurn === 1)
+      this.playerTurn = 2;
+    else if (this.playerTurn === 2)
+      this.playerTurn = 1;
+    this.selected = [];
+    this.passTurnEn = true;
     this.board.forEach(function(bp) {
-      if(bp.turned === true)
-      {
-        bp.turn()
-        let positionInSelected = self.selected.indexOf(bp.value);
-          if (positionInSelected !== -1)
-            self.selected.splice(positionInSelected, 1);
-      }
-    if (self.playerTurn === 1)
-      self.playerTurn = 2;
-    else if (self.playerTurn === 2)
-      self.playerTurn = 1;
+    if(bp.turned === true)
+    {
+      bp.turn()
+      let positionInSelected = self.selected.indexOf(bp.value);
+        if (positionInSelected !== -1)
+          self.selected.splice(positionInSelected, 1);
+    }
     });
   }
 }

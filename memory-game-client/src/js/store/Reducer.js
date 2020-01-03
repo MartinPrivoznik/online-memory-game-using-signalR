@@ -10,8 +10,6 @@ export default (state = initState, action) => {
     case turn:
       pg.connectionHub
       .invoke('GetPlayerNum').then(function(playerNum) {
-          console.log(playerNum);
-          console.log(pg.playerTurn);
         if (playerNum === pg.playerTurn)
         {
             pg.connectionHub
@@ -34,8 +32,6 @@ export default (state = initState, action) => {
     case passTurn:
         pg.connectionHub
       .invoke('GetPlayerNum').then(function(playerNum) {
-          console.log(playerNum);
-          console.log(pg.playerTurn);
         if (playerNum === pg.playerTurn)
         {
             pg.connectionHub
@@ -68,5 +64,5 @@ export const actionCreators = {
   turn: value => ({ type: turn, value: value }),
   turnEnemy: value => ({ type: turnEnemy, value: value}),
   passTurn: () => ({type: passTurn}),
-  passTurnEnemy: () => ({type: passTurn})
+  passTurnEnemy: () => ({type: passTurnEnemy})
 };
