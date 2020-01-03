@@ -10,27 +10,23 @@ class App extends Component {
     this.state = {};
   }
 
-
-
   render() {
-    return (
-      <div className="App">
-        <h1>Multiplayer Memory Game</h1>
-        <Stats />
-        <div className="table">
-          <Desk />
+      return (
+        <div className="App">
+          <h1>Multiplayer Memory Game</h1>
+          <Stats />
+          <div className="table">
+            <Desk />
+          </div>
         </div>
-      </div>
-    );
+      );
+    }
   }
-}
-const mapDispatchToProps = {};
-
-const mapStateToProps = state => ({});
+const mapStateToProps = state => ({
+});
 
 const AppContainer = connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(App);
 
 export default AppContainer;

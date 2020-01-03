@@ -48,10 +48,13 @@ export default (state = initState, action) => {
         return pg;
 
     case passTurnEnemy:
+        pg.CheckRemoveFromBoard();
         pg.TurnBackAll();
         return pg;
+
     default:
-      return state;
+      pg.gameReady = true;
+      return pg;
   }
 };
 

@@ -19,6 +19,7 @@ class Stats extends Component {
     return (
       <div align="center">
         <div className="stats">
+          <p> Room{this.props.roomName}</p>
           <p>Selectable: {this.props.left}</p>
           <p>Player{this.props.player} turn</p>
         </div>
@@ -37,7 +38,8 @@ const mapStateToProps = state => ({
   player: state.playerTurn,
   connection: state.connectionHub,
   left: state.maxTurned - state.selected.length,
-  passTurnEn: state.passTurnEn
+  passTurnEn: state.passTurnEn,
+  roomName: state.roomName
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Stats);

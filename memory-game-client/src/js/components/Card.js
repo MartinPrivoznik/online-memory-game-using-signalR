@@ -13,7 +13,7 @@ class Card extends Component {
     return (
       <figure
         className={this.props.turned ? "item selected" : "item"}
-        onClick={() => this.props.turn(this.props.value)}
+        onClick={() => this.props.turn(this.props.index)}
       >
         <div className="face">
           <p>{this.props.value}</p>

@@ -2,7 +2,8 @@ import * as signalR from '@aspnet/signalr';
 
 //herní karta s hodnotou na líci a yin-yang na rubu
 class boardPiece {
-  constructor(value) {
+  constructor(index, value) {
+    this.index = index;
     this.turned = false;
     this.value = value;
   }
@@ -22,13 +23,18 @@ class memoryGame {
     this.roomName = gameData.roomName;
     this.playerTurn = gameData.playerTurn;
     this.passTurnEn = gameData.passTurnEn;
+    this.pairsTurned = 0;
   }
 
   static initGame(maxTurned = 2, noOfCards = 28) {
     const newBoard = [];
 
+    let val = 1;
+
     for (let index = 1; index <= noOfCards; index++) {
-      newBoard.push(new boardPiece(index));
+      newBoard.push(new boardPiece(index, val));
+      if (index % 2 === 0)
+        val++;
     }
 
     memoryGame._shuffleBoard(newBoard);
@@ -81,12 +87,12 @@ class memoryGame {
       (this._getTurned() < this.maxTurned)
     ) {
       this.board.forEach(function(bp) {
-        if (bp.value === parseInt(number) && bp.turned === false) {
+        if (bp.index === parseInt(number) && bp.turned === false) {
           bp.turn();
           let positionInSelected = self.selected.indexOf(number);
           if (positionInSelected !== -1)
             self.selected.splice(positionInSelected, 1);
-          else self.selected.push(number);
+          else self.selected.push(bp.value);
           if(self.selected.length === 2)
           {
             self.passTurnEn = false;
@@ -94,10 +100,23 @@ class memoryGame {
         }
       });
     }
-    else {
-     alert("Not your turn!")
+  }
+
+   CheckRemoveFromBoard() {
+    if (this.selected[0] === this.selected[1])
+    {
+      let value = this.selected[0];
+      for(var i in this.board){
+        if(this.board[i].value===value){
+            this.board.splice(i,1);
+        }
+    }
     }
   }
+
+   _removeItem(array, item){
+    
+}
 
   TurnBackAll() {
     var self = this;
