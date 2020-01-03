@@ -25,7 +25,7 @@ namespace memory_game_server.Controllers.Hubs
             {
                 int playerNum;
                 //Dynamically allocate number of rooms
-                if (_memoryGameManager.CountInRoom == 2)
+                if (_memoryGameManager.CountInRoom == 2 || _memoryGameManager.CountInRoom == 0)
                 {
                     playerNum = 1;
                     _memoryGameManager.CountInRoom = 1;

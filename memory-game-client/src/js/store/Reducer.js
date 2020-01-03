@@ -42,6 +42,7 @@ export default (state = initState, action) => {
         }
         else
         {
+          
             alert("Not your turn!");
         }
       });

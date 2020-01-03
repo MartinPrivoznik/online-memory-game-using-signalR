@@ -40,8 +40,8 @@ class memoryGame {
     memoryGame._shuffleBoard(newBoard);
 
     const connection =  new signalR.HubConnectionBuilder()
-    // .withUrl("http://192.168.0.108:5001/memorygamehub")
-    .withUrl("https://localhost:44301/memorygamehub")
+    // .withUrl("http://192.168.0.108:5001/memorygamehub") -- Uncomment and change address to your IPv4 if running server by 'dotnet run'
+    .withUrl("https://localhost:44301/memorygamehub") // -- If debug mode, change just port you are using
     .configureLogging(signalR.LogLevel.Information)
     .build();
 
